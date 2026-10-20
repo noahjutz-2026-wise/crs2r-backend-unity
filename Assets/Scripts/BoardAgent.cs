@@ -175,12 +175,12 @@ public class BoardAgent : Agent
         debugObservedHoles.Clear();
 
         AddMarblePositionObservation(sensor);
-        AddGoalPositionObservation(sensor);
+        // AddGoalPositionObservation(sensor);
         AddBoardTiltObservation(sensor);
-        AddHolePositionsObservation(sensor);
+        // AddHolePositionsObservation(sensor);
         AddGuidanceObservation(sensor);
         AddPathProgressObservation(sensor);
-        AddRaycastObservations(sensor);
+        // AddRaycastObservations(sensor);
     }
 
     /// <inheritdoc />
@@ -325,7 +325,8 @@ public class BoardAgent : Agent
             flat.y = 0f;
 
             Vector3 localGuidance = transform.InverseTransformDirection(flat);
-            sensor.AddObservation(localGuidance.normalized);
+            Vector2 localGuidance2 =  new Vector2(localGuidance.x, localGuidance.z);
+            sensor.AddObservation(localGuidance2.normalized);
         }
         else
         {
