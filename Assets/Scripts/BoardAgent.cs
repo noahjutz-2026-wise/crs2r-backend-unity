@@ -65,6 +65,9 @@ public class BoardAgent : Agent
     private int successfulEpisodes = 0;
     string boardName;
 
+    public HingeJoint outerJoint;
+    public HingeJoint innerJoint;
+
     // ===========================
     // === Unity Lifecycle Methods
     // ===========================
@@ -186,7 +189,15 @@ public class BoardAgent : Agent
     /// <inheritdoc />
     public override void OnActionReceived(ActionBuffers actions)
     {
-        HandleBoardTiltActions(actions);
+        Debug.Log($"actions: {actions.ContinuousActions[0]:F2}, {actions.ContinuousActions[1]:F2}");
+        // HandleBoardTiltActions(actions);
+        var mX = outerJoint.motor;
+        mX.targetVelocity = actions.ContinuousActions[0] * 50;
+        outerJoint.motor = mX;
+        var mZ = innerJoint.motor;
+        mZ.targetVelocity = actions.ContinuousActions[1] * 50;
+        innerJoint.motor = mZ;
+        
         UpdatePathAndProgress();
         DrawIdealPathDebug();
         HandleEpisodeTimeout();

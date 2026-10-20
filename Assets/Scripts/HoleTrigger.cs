@@ -43,6 +43,7 @@ public class HoleTrigger : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("TRIGGERED");
         if (agent == null)
         {
             // Manual mode: reset board and marble when the marble hits the catch trigger
